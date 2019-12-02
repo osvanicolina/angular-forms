@@ -11,10 +11,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class DataComponent{
   
   form: FormGroup;
-  usuario: Object = {
+  user: Object = {
     name: { 
       first_name: 'Osvani',
-      last_name: 'COlina'
+      last_name: 'Colina'
     },
     email: 'osvacolijim@gmail.com'
   }
@@ -28,10 +28,19 @@ export class DataComponent{
       }),
       'email': new FormControl('', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])
     });
-  
+    
+
+    this.form.setValue( this.user );
   }
   
   save(){
     console.log(this.form);
+    this.form.reset({
+      name:{
+        first_name: '',
+        last_name: ''
+      },
+      email: ''
+    });//Can be reset() and reset the values anyways
   }
 }

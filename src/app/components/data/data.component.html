@@ -8,7 +8,7 @@
             <label class="col-2 col-form-label">First Name</label>
             <div class="col-8">
 
-                <input class="form-control" formControlName="first_name" type="text" placeholder="Nombre" [ngClass]="{ 'is-invalid': form.get('name.first_name').invalid && form.touched, 'is-valid': form.get('name.first_name').valid && form.touched}">
+                <input class="form-control" formControlName="first_name" type="text" placeholder="Nombre" [ngClass]="{ 'is-invalid': form.get('name.first_name').invalid && form.get('name.first_name').touched, 'is-valid': form.get('name.first_name').valid && form.get('name.first_name').touched}">
 
                 <div *ngIf="form.get('name.first_name').errors?.required" class="invalid-feedback">
                     This field is required.
