@@ -1,19 +1,27 @@
-<h4>Formularios <small>template</small></h4>
+<h4>Forms <small>data</small></h4>
 <hr>
 <form [formGroup]='form' (ngSubmit)="save()">
 
     <div>
 
         <div class="form-group row">
-            <label class="col-2 col-form-label">Nombre</label>
+            <label class="col-2 col-form-label">First Name</label>
             <div class="col-8">
 
-                <input class="form-control" formControlName="first_name" type="text" placeholder="Nombre">
+                <input class="form-control" formControlName="first_name" type="text" placeholder="Nombre" [ngClass]="{ 'is-invalid': form.controls['first_name'].invalid && form.touched, 'is-valid': form.controls['first_name'].valid && form.touched}">
+
+                <div *ngIf="form.controls['first_name'].errors?.required" class="invalid-feedback">
+                    This field is required.
+                </div>
+                <div *ngIf="form.controls['first_name'].errors?.minlength" class="invalid-feedback">
+                    At least {{ form.controls['first_name'].errors.minlength.requiredLength }} characters.
+                </div>
+
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-2 col-form-label">Apellido</label>
+            <label class="col-2 col-form-label">Last Name</label>
             <div class="col-8">
 
                 <input class="form-control" formControlName="last_name" type="text" placeholder="Apellido">
@@ -23,7 +31,7 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-2 col-form-label">Correo</label>
+        <label class="col-2 col-form-label">Email</label>
         <div class="col-md-8">
 
             <input class="form-control" formControlName="email" type="email" placeholder="Correo electrónico">
@@ -36,7 +44,7 @@
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">
             <button type="submit" class="btn btn-outline-primary">
-        Guardar
+        Save
       </button>
         </div>
     </div>
