@@ -38,10 +38,33 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Username</label>
+        <div class="col-8">
+
+            <input class="form-control" formControlName="username" type="text" placeholder="Username">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Password</label>
+        <div class="col-md-8">
+
+            <input class="form-control" formControlName="password1" type="password" placeholder="Password">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Confirm Password</label>
+        <div class="col-md-8">
+
+            <input class="form-control" formControlName="password2" type="password" placeholder="Password">
+        </div>
+    </div>
 
 
     <div class="form-group row">
-        <label class="col-2 col-form-label">Hobby</label>
+        <label class="col-2 col-form-label">Hobbies</label>
         <div class="col-md-8" formArrayName="hobbies">
             <input *ngFor="let hobby of form.controls['hobbies'].controls; let i = index;" type="text" class="form-control" [formControlName]="i">
         </div>
@@ -59,4 +82,5 @@
         </div>
     </div>
     {{ form.valid }}
+    <br> {{ form.status }}
 </form>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 
 
@@ -30,11 +31,18 @@ export class DataComponent{
       'email': new FormControl('', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
       'hobbies': new FormArray([
                   new FormControl('Correr', Validators.required)
-                ])
+                ]),
+      'username': new FormControl('', Validators.required, this.existUser),
+      'password1': new FormControl('', Validators.required),
+      'password2': new FormControl()
     });
     
 
     //this.form.setValue( this.user );
+    this.form.controls['password2'].setValidators([
+      Validators.required,
+      this.noEqual.bind( this.form )
+    ]);
   }
   
   addHobby(){
@@ -51,6 +59,36 @@ export class DataComponent{
     }else{
       return null;
     }
+  }
+
+  noEqual(control: FormControl): {[s: string]: boolean}{
+    //This = form
+    let form:any = this;
+    if(control.value !== form.controls['password1'].value){
+      return {
+        noequal: true
+      }
+    }else{
+      return null;
+    }
+  }
+
+  existUser( control: FormControl): Promise<any>|Observable<any>{
+    let promise = new Promise(
+      (resolve, reject) =>{
+        setTimeout( ()=>{
+          if(control.value === "strider"){
+            resolve({
+              existuser:true
+            });
+          }else{
+            resolve(null)
+          }
+        },3000);    
+      }
+    )
+
+    return promise;
   }
 
   save(){
