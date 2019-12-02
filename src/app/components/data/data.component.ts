@@ -15,9 +15,12 @@ export class DataComponent{
   constructor() { 
 
     this.form = new FormGroup({
-      'first_name': new FormControl('Osvani'),
-      'last_name': new FormControl(),
-      'email': new FormControl()
+      'first_name': new FormControl('Osvani', Validators.required),
+      'last_name': new FormControl('', Validators.required),
+      'email': new FormControl('', [
+                                    Validators.required, 
+                                    Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
+                                  ])
     });
   
   }
