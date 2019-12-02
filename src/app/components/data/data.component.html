@@ -41,6 +41,16 @@
 
 
     <div class="form-group row">
+        <label class="col-2 col-form-label">Hobby</label>
+        <div class="col-md-8" formArrayName="hobbies">
+            <input *ngFor="let hobby of form.controls['hobbies'].controls; let i = index;" type="text" class="form-control" [formControlName]="i">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="addHobby()">Nuevo</button>
+
+    </div>
+
+
+    <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">
             <button type="submit" class="btn btn-outline-primary">
@@ -48,5 +58,5 @@
       </button>
         </div>
     </div>
-
+    {{ form.valid }}
 </form>
