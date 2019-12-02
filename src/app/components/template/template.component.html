@@ -1,18 +1,18 @@
 <h4>Forms <small>template</small></h4>
 <hr>
 <form (ngSubmit)="save(form)" #form="ngForm" novalidate="">
-
     <div>
 
         <div class="form-group row">
             <label class="col-2 col-form-label">First Name</label>
             <div class="col-8">
 
-                <input class="form-control" type="text" placeholder="First Name" name="first_name" minlength="5" [(ngModel)]="user.first_name" required #first_name="ngModel">
-                <div *ngIf="first_name.errors?.required">
+                <input class="form-control" type="text" [ngClass]="{ 'is-invalid': (first_name.touched && (first_name.errors?.minlength || first_name.errors?.required)), 'is-valid': (first_name.touched && !(first_name.errors?.minlength || first_name.errors?.required))}"
+                    placeholder="First Name" name="first_name" minlength="5" [(ngModel)]="user.first_name" required #first_name="ngModel">
+                <div *ngIf="first_name.errors?.required" class="invalid-feedback">
                     This field is required.
                 </div>
-                <div *ngIf="first_name.errors?.minlength">
+                <div *ngIf="first_name.errors?.minlength" class="invalid-feedback">
                     At least {{ first_name.errors.minlength.requiredLength }} characters.
                 </div>
             </div>
@@ -22,11 +22,12 @@
             <label class="col-2 col-form-label">Last Name</label>
             <div class="col-8">
 
-                <input class="form-control" type="text" placeholder="Last Name" name="last_name" minlength="5" [(ngModel)]='user.last_name' required #last_name="ngModel">
-                <div *ngIf="last_name.errors?.required">
+                <input class="form-control" type="text" [ngClass]="{ 'is-invalid': (last_name.touched && (last_name.errors?.minlength || last_name.errors?.required)), 'is-valid': (last_name.touched && !(last_name.errors?.minlength || last_name.errors?.required))}" placeholder="Last Name"
+                    name="last_name" minlength="5" [(ngModel)]='user.last_name' required #last_name="ngModel">
+                <div *ngIf="last_name.errors?.required" class="invalid-feedback">
                     This field is required.
                 </div>
-                <div *ngIf="last_name.errors?.minlength">
+                <div *ngIf="last_name.errors?.minlength" class="invalid-feedback">
                     At least {{ first_name.errors.minlength.requiredLength }} characters.
                 </div>
             </div>
@@ -36,27 +37,64 @@
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Email</label>
-        <div class="col-md-8">
+        <div class="col-8">
 
-            <input class="form-control" type="email" placeholder="Email" name="email" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #email="ngModel">
-            <div *ngIf="email.errors?.required">
+            <input class="form-control" type="email" [ngClass]="{ 'is-invalid': (email.touched && (email.errors?.pattern || email.errors?.required)), 'is-valid': (email.touched && !(email.errors?.pattern || email.errors?.required))}" placeholder="Email" name="email"
+                [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #email="ngModel">
+            <div *ngIf="email.errors?.required" class="invalid-feedback">
                 This field is required.
             </div>
-            <div *ngIf="email.errors?.pattern">
+            <div *ngIf="email.errors?.pattern" class="invalid-feedback">
                 This field doesnt have email format.
             </div>
         </div>
     </div>
 
+    <div class="form-group row">
+        <label class="col-2 col-form-label">País</label>
+        <div class="col-8">
+            <select [(ngModel)]="user.country" class="form-control" name="country">
+          <option value="">Seleccione un país</option>
+          <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+        </select>
+        </div>
+    </div>
 
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Gender</label>
+        <div class="col-8">
+            <div class="custom-control custom-radio">
+                <input [(ngModel)]="user.gender" id="customRadioInline1" type="radio" name="gender" class="custom-control-input" value="Male">
+                <label class="custom-control-label" for="customRadioInline1">Male</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input [(ngModel)]="user.gender" id="customRadioInline2" type="radio" name="gender" class="custom-control-input" value="Female">
+                <label class="custom-control-label" for="customRadioInline2">Female</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Accept</label>
+        <div class="col-8">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" [(ngModel)]="user.accept" name="accept" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Accept</label>
+            </div>
+        </div>
+    </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">
-            <button type="submit" class="btn btn-outline-primary">
+
+            <button [disabled]="!form.valid || !user.accept" type="submit" class="btn btn-outline-primary">
         Save
       </button>
         </div>
     </div>
 
 </form>
+<pre>
+  {{user | json}}
+</pre>
