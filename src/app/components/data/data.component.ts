@@ -43,6 +43,16 @@ export class DataComponent{
       Validators.required,
       this.noEqual.bind( this.form )
     ]);
+
+    this.form.controls['username'].valueChanges
+      .subscribe( data => {
+        console.log(data);
+      });
+    
+    this.form.controls['username'].statusChanges
+      .subscribe( data => {
+        console.log(data);
+      });
   }
   
   addHobby(){
